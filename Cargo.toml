@@ -1,0 +1,19 @@
+[package]
+name = "gh-guard"
+version = "0.1.0"
+edition = "2021"
+description = "Secure gh wrapper with phone approval for PR creation"
+
+[[bin]]
+name = "gh-guard"
+path = "src/main.rs"
+
+[dependencies]
+anyhow    = "1"
+colored   = "2"
+keyring   = "2"
+rpassword = "7"
+serde     = { version = "1", features = ["derive"] }
+serde_json = "1"
+ureq      = { version = "2", features = ["json"] }
+uuid      = { version = "1", features = ["v4"] }
