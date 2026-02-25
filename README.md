@@ -86,10 +86,52 @@ The same flow protects every `gh api` mutation (`PATCH`, `POST`, `PUT`, `DELETE`
 - [Telegram](https://telegram.org) app on your phone
 - [GitHub CLI](https://cli.github.com) installed as the real `gh`
 
+### Option A — Claude Code (recommended)
+
+If you have [Claude Code](https://claude.ai/code) installed, the entire setup is one command:
+
+```bash
+git clone https://github.com/louis-jan/gh-guard
+cd gh-guard
+claude
+```
+
+Once Claude Code opens, run:
+
+```
+/setup
+```
+
+Claude will build the binary, install it, walk you through the GitHub PAT and Telegram bot prompts, send a test notification, and add the shell alias — all in one guided session.
+
+<details>
+<summary>Security concern: is my PAT exposed to Claude?</summary>
+
+No. When Claude runs `gh-guard setup pat`, the PAT prompt uses
+[`rpassword::prompt_password`](https://docs.rs/rpassword) which reads
+directly from the TTY with echo disabled — bypassing stdout and stderr
+entirely. Claude's Bash tool only captures stdout/stderr output; it
+never has access to raw TTY input.
+
+The only output Claude sees from the wizard is non-sensitive:
+
+```
+✓ (signed in as louis-jan)
+PAT stored in macOS Keychain.
+```
+
+The same applies to the Telegram bot token prompt. And `gh-guard setup show`
+only ever prints a masked value (`ghp_aPI…xs1Z`), so even credential
+verification reveals nothing.
+
+</details>
+
+### Option B — Manual
+
 **Build and install**
 
 ```bash
-git clone https://github.com/yourname/gh-guard
+git clone https://github.com/louis-jan/gh-guard
 cd gh-guard
 cargo build --release
 cp target/release/gh-guard ~/.local/bin/gh-guard
@@ -108,7 +150,7 @@ source ~/.zshrc
 
 ---
 
-## Setup
+## Setup (manual)
 
 ```
 gh-guard setup
