@@ -9,6 +9,8 @@ You gave your AI coding agent `GITHUB_TOKEN`. It has `repo` scope. It is running
 
 The XZ backdoor took two years of patient, trusted commits before it struck. The next one won't announce itself either. It'll look like a helpful dependency update, a CI improvement, a perfectly normal `gh pr create`. And your PAT will be in the env.
 
+> If you want to know what getting hit actually looks like — and how to harden your whole dev environment against it — read **[I Got Hit by Shai-Hulud: How I Rebuilt My Development Environment from the Ashes](https://dev.to/ottercyborg/i-got-hit-by-shai-hulud-how-i-rebuilt-my-development-environment-from-the-ashes-3ac2)**. gh-guard is one piece of that stack.
+
 **gh-guard** is a wrapper around the GitHub CLI that keeps your PAT locked in the macOS Keychain — away from shell history, away from `.env` files, away from whatever is running in your terminal — and requires **your physical phone approval** before any PR or mutating API call goes through.
 
 No agent creates a PR without you tapping a button. No `gh api --method PATCH` sneaks past. Your token never touches a config file.
